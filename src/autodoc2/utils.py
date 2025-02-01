@@ -8,7 +8,15 @@ import os
 from pathlib import Path
 import typing as t
 
-from typing_extensions import Required
+try:
+    from typing_extensions import Required
+except ImportError:
+    from typing import Generic, TypeVar
+
+    T = TypeVar("T")
+
+    class Required(Generic[T]):
+        pass
 
 PROPERTY_TYPE = t.Literal[
     "async", "staticmethod", "classmethod", "abstractmethod", "singledispatch"
